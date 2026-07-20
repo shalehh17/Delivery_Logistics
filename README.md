@@ -39,13 +39,33 @@ Delivery_Logistics/
 ├── requirements.txt       # Project dependencies
 └── README.md              # Project documentation
 
-⚙️ Installation & Setup
+📑 Detailed System Documentation
+1. Data Preprocessing & Pipeline (src/preprocessing.py)
+Single Source of Truth: Centralizes all feature definitions, separating them strictly into numeric columns (distance_km, package_weight_kg, delivery_time_hours, expected_time_hours, delivery_rating, delivery_cost) and categorical columns (delivery_partner, package_type, vehicle_type, delivery_mode, region, weather_condition, delayed, delivery_status).
+
+Automated Data Cleansing: Forces numeric conversions to handle irregularities, standardizes categorical values, and handles missing values to prevent training bottlenecks.
+
+Feature Transformation: Utilizes Scikit-Learn's StandardScaler for numeric features and OneHotEncoder (with handle_unknown='ignore') wrapped inside a ColumnTransformer, which is saved as preprocessor.pkl.
+
+2. Inference Engine (app/inference.py)
+Proactive Prediction Pipeline: Automatically transforms user inputs via the saved preprocessor pipeline, converts data types into float32 for TensorFlow compatibility, and performs model inference (logistics_model.h5).
+
+Decision Thresholding: Evaluates delay probabilities using an operational decision threshold (e.g., 0.4) to classify potential delays and generate actionable advice for supply chain management.
+
+Error Handling & Debugging: Equipped with a robust try-except block and traceback logging to capture and diagnose any matrix shape or feature mismatch issues seamlessly.
+
+3. Interactive User Interface (app/main.py & app/dashboard.py)
+Step-by-Step Chat Interface (Real-time Prediction): Guides the user through a conversational input flow to capture core delivery parameters (distance, package weight, and logistics partner selection) before dispatching data to the model.
+
+Analytics Dashboard: Provides visual breakdowns of average delay rates per logistics partner, cost distributions, and filterable data tables for deep exploratory data analysis (EDA).
+
+⚙️ Installation & Local Setup
 Follow these steps to run the project locally on your machine:
 
 1. Clone the Repository
+Bash
 git clone [https://github.com/shalehh17/Delivery_Logistics.git](https://github.com/shalehh17/Delivery_Logistics.git)
 cd Delivery_Logistics
-
 2. Create and Activate Virtual Environment
 Bash
 python -m venv venv
@@ -53,11 +73,10 @@ python -m venv venv
 venv\Scripts\activate
 # On macOS/Linux:
 # source venv/bin/activate
-
 3. Install Dependencies
 Bash
 pip install -r requirements.txt
-4. Run the Preprocessing Pipeline (Optional/If data updates)
+4. Run the Preprocessing Pipeline (If data is modified)
 Bash
 python src/preprocessing.py
 5. Launch the Streamlit Application
@@ -65,17 +84,22 @@ Bash
 streamlit run app/main.py
 
 
-
 📊 Tech Stack & Libraries
-Language: Python
-Frontend/UI: Streamlit
-Machine Learning / Preprocessing: Scikit-Learn, Pandas, NumPy, Joblib
-Deep Learning: TensorFlow / Keras
-Version Control: Git & GitHub
+-Language: Python
+-Frontend / UI: Streamlit
+-Machine Learning / Preprocessing: Scikit-Learn, Pandas, NumPy, Joblib
+-Deep Learning: TensorFlow / Keras
+-Version Control: Git & GitHub
 
-💡 Usage Preview
-1.Open the Streamlit local server (usually http://localhost:8501).
-2.Navigate to Real-time Prediction via the sidebar.
-3.Input the required parameters step-by-step (Delivery distance, package weight, and logistics partner).
-4.Click Analisis to get real-time risk assessment and operational advice.
-5.Switch to Analytics Dashboard to explore historical performance data.
+💡 How to Use the Application
+1.Open the local Streamlit server (typically http://localhost:8501).
+2.Use the sidebar to switch between Real-time Prediction and Analytics Dashboard.
+3.Real-time Prediction Flow:
+  A.Input the delivery distance in kilometers when prompted.
+  B.Input the package weight in kilograms.
+  C.Select your preferred logistics partner from the dropdown.
+  CD.lick Analisis to view the delay risk percentage and operational advice.
+4.Analytics Dashboard Flow:
+   A. Explore interactive charts visualizing delivery partner performance, metrics summaries, and detailed underlying logs.
+
+Explore interactive charts visualizing delivery partner performance, metrics summaries, and detailed underlying logs.
