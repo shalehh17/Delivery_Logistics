@@ -63,15 +63,14 @@ python src/preprocessing.py
 5. Launch the Streamlit Application
 Bash
 streamlit run app/main.py
+
+
+
 📊 Tech Stack & Libraries
 Language: Python
-
 Frontend/UI: Streamlit
-
 Machine Learning / Preprocessing: Scikit-Learn, Pandas, NumPy, Joblib
-
 Deep Learning: TensorFlow / Keras
-
 Version Control: Git & GitHub
 
 💡 Usage Preview
