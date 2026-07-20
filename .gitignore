@@ -1,0 +1,20 @@
+models/*.pkl
+models/*.h5
+data/raw/*.csv
+.streamlit/secrets.toml
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Model / System artifacts (opsional, jika ukurannya terlalu besar untuk GitHub)
+# models/*.h5
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
